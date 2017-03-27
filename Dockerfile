@@ -58,8 +58,16 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 #RUN mkdir -p /data \
 #        && chown -R odoo /data
 RUN mkdir /extra-addons && mkdir /data && ln -s /usr/lib/python2.7/dist-packages/odoo/addons /
-        
-VOLUME ["/extra-addons","/data","/addons","/var/lib/odoo","/etc/odoo","/var/lib/postgresql"]
+
+ENV HOST_BASE_DIR /odoo
+VOLUME [
+    $HOST_BASE_DIR/extra-addons:/extra-addons:RW,
+    $HOST_BASE_DIR/data:/data:RW,
+    $HOST_BASE_DIR/addons:/addons:RO,
+    $HOST_BASE_DIR/etc/odoo:/etc/odoo:RO,
+    $HOST_BASE_DIR/var/lib/odoo:/var/lib/odoo:RO,
+    $HOST_BASE_DIR/var/lib/postgresql:/var/lib/postgresql:RO
+    ]
 
 EXPOSE 8069
 
