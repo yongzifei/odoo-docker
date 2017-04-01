@@ -55,12 +55,7 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 ENV HOST_BASE_DIR /odoo
 ENV INSTANCE_NAME odoo
-VOLUME ["${HOST_BASE_DIR}/addons:/addons",
-        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/odoo:/var/lib/odoo",
-        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/etc/odoo:/etc/odoo",
-        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/postgresql:/var/lib/postgresql",
-        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/extra-addons:/extra-addons",
-        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/data:/data"]
+VOLUME ["${HOST_BASE_DIR}/addons:/addons","${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/odoo:/var/lib/odoo","${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/etc/odoo:/etc/odoo","${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/postgresql:/var/lib/postgresql","${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/extra-addons:/extra-addons","${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/data:/data"]
 
 EXPOSE 8069
 
