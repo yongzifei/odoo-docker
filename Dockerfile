@@ -51,23 +51,16 @@ COPY ./odoo.conf /etc/odoo/
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
 
-# Modify group and user odoo id for interacting with host
-#RUN groupmod -g 1000 odoo && usermod -u 1000 -g odoo odoo
-#RUN mkdir -p /extra-addons \
-#        && chown -R odoo /extra-addons
-#RUN mkdir -p /data \
-#        && chown -R odoo /data
-RUN mkdir /extra-addons && mkdir /data && ln -s /usr/lib/python2.7/dist-packages/odoo/addons /
+#RUN mkdir /extra-addons && mkdir /data
 
 ENV HOST_BASE_DIR /odoo
-VOLUME [
-    $HOST_BASE_DIR/extra-addons:/extra-addons:RW,
-    $HOST_BASE_DIR/data:/data:RW,
-    $HOST_BASE_DIR/addons:/addons:RO,
-    $HOST_BASE_DIR/etc/odoo:/etc/odoo:RO,
-    $HOST_BASE_DIR/var/lib/odoo:/var/lib/odoo:RO,
-    $HOST_BASE_DIR/var/lib/postgresql:/var/lib/postgresql:RO
-    ]
+ENV INSTANCE_NAME odoo
+VOLUME ["${HOST_BASE_DIR}/addons:/addons",
+        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/odoo:/var/lib/odoo",
+        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/etc/odoo:/etc/odoo",
+        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/var/lib/postgresql:/var/lib/postgresql",
+        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/extra-addons:/extra-addons",
+        "${HOST_BASE_DIR}/customers/${INSTANCE_NAME}/data:/data"]
 
 EXPOSE 8069
 
