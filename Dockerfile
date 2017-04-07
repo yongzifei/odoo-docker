@@ -12,7 +12,7 @@ RUN set -x; \
 USER postgres
 RUN /etc/init.d/postgresql start  && psql --command "CREATE USER root WITH SUPERUSER CREATEDB REPLICATION;"
 USER root
-ENV PGDATA /var/lib/postgresql/data
+#ENV PGDATA /var/lib/postgresql/data
 
 # Install some deps, lessc and less-plugin-clean-css
 # Cannot install wkhtmltopdf,default in ubuntu without header&footer
@@ -59,7 +59,7 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 #        && chown -R odoo /data
 RUN mkdir /extra-addons && mkdir /data && ln -s /usr/lib/python2.7/dist-packages/odoo/addons /
         
-VOLUME ["/extra-addons","/data","/addons","/var/lib/odoo","/etc/odoo","/var/lib/postgresql/data"]
+#VOLUME ["/extra-addons","/data","/addons","/var/lib/odoo","/etc/odoo","/var/lib/postgresql/data"]
 
 EXPOSE 8069
 
