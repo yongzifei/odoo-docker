@@ -36,49 +36,48 @@ if [ "$1" = 'odoo' ] && [ "$(id -u)" = '0' ]; then
 	chmod 0750 "$ODOO_DATA_DIR"
 
     mkdir -p "$ODOO_CONFIGURATION_DIR"
-	chown -R odoo "$ODOO_CONFIGURATION_DIR"
-	chmod 0750 "$ODOO_CONFIGURATION_DIR"
+    chown -R odoo "$ODOO_CONFIGURATION_DIR"
+    chmod 0750 "$ODOO_CONFIGURATION_DIR"
 
     chown odoo "$ODOO_CONFIGURATION_FILE"
     chmod 0640 "$ODOO_CONFIGURATION_FILE"
 
 
     mkdir -p "$ODOO_EXTRA_ADDONS"
-	chown -R odoo "$ODOO_EXTRA_ADDONS"
-	chmod 0750 "$ODOO_EXTRA_ADDONS"
+    chown -R odoo "$ODOO_EXTRA_ADDONS"
+    chmod 0750 "$ODOO_EXTRA_ADDONS"
 
     mkdir -p "$ODOO_LOG_DIR"
-	chown -R odoo "$ODOO_LOG_DIR"
-	chmod 0750 "$ODOO_LOG_DIR"
+    chown -R odoo "$ODOO_LOG_DIR"
+    chmod 0750 "$ODOO_LOG_DIR"
+    
+    exec service odoo restart
+    exec gosu odoo "$BASH_SOURCE" "$@"
 
 fi
 
 
 if [ "$1" = 'odoo' ]; then
-	mkdir -p "$ODOO_DATA_DIR"
-	chown -R "$(id -u)" "$ODOO_DATA_DIR" 2>/dev/null || :
-	chmod 0750 "$ODOO_DATA_DIR" 2>/dev/null || :
+    mkdir -p "$ODOO_DATA_DIR"
+    chown -R "$(id -u)" "$ODOO_DATA_DIR" 2>/dev/null || :
+    chmod 0750 "$ODOO_DATA_DIR" 2>/dev/null || :
 
     mkdir -p "$ODOO_CONFIGURATION_DIR"
-	chown -R "$(id -u)" "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
-	chmod 0750 "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
+    chown -R "$(id -u)" "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
+    chmod 0750 "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
 
-	chown -R "$(id -u)" "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
-	chmod 0640 "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
+    chown -R "$(id -u)" "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
+    chmod 0640 "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
 
     mkdir -p "$ODOO_EXTRA_ADDONS"
-	chown -R "$(id -u)" "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
-	chmod 0750 "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
+    chown -R "$(id -u)" "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
+    chmod 0750 "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
 
     mkdir -p "$ODOO_LOG_DIR"
-	chown -R "$(id -u)" "$ODOO_LOG_DIR" 2>/dev/null || :
-	chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :
-
-    
+    chown -R "$(id -u)" "$ODOO_LOG_DIR" 2>/dev/null || :
+    chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :    
 fi
 
-exec service odoo restart
-exec gosu odoo "$BASH_SOURCE" "$@"
 
 case "$1" in
     -- | odoo)
