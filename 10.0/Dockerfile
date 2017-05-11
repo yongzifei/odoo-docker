@@ -74,7 +74,7 @@ RUN set -x; \
         && apt-get -y install -f --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
-
+COPY ./simsun.ttc /usr/share/fonts
 
 RUN usermod -u 888 odoo
 RUN id -u odoo
