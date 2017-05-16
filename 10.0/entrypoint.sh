@@ -78,6 +78,7 @@ if [ "$1" = 'odoo' ]; then
     chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :    
 fi
 
+exec gosu odoo "$BASH_SOURCE" "$@"
 
 case "$1" in
     -- | odoo)
