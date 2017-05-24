@@ -43,7 +43,7 @@ ENV ODOO_LOG_DIR /var/log/odoo
 # ODOO_LOG_DIR=/var/log/odoo
 # ODOO_USER="odoo"
 
-# Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
+# Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdfsudo apt-get install ttf-wqy-*
 RUN set -x; \
         apt-get update \
         && apt-get install -y --no-install-recommends \
@@ -61,14 +61,15 @@ RUN set -x; \
         && apt-get -y install -f --no-install-recommends \
         && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb \
-        && pip install psycogreen==1.0
+        && pip install psycogreen==1.0 \
+	&& apt-get install ttf-wqy-*
 
 # Install Odoo
 ENV ODOO_VERSION 10.0
 ENV ODOO_RELEASE 20170521
 RUN set -x; \
         curl -o odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-        && echo 'e9eef0c5ad4960eb8838b59cf9a5d337796203a3 odoo.deb' | sha1sum -c - \
+        && echo 'e57b9a8ecbec792743122431d1f0a823 odoo.deb' | sha1sum -c - \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
