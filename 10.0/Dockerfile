@@ -65,10 +65,10 @@ RUN set -x; \
 
 # Install Odoo
 ENV ODOO_VERSION 10.0
-ENV ODOO_RELEASE 20170521
+ENV ODOO_RELEASE 20170604
 RUN set -x; \
         curl -o odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-        && echo 'a4ecdf1bd7b9e322408e5501fe2dd0bae5922646 odoo.deb' | sha1sum -c - \
+        && echo '5dcdb540cc142dceaf8070faa6ab44033a20d989 odoo.deb' | sha1sum -c - \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
@@ -92,7 +92,7 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 # Set default user when running the container
 # USER odoo
 
-RUN echo 2017-05-24 01
+RUN echo 2017-06-04 01
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
